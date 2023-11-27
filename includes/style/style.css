@@ -1,0 +1,60 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    height: auto;
+}
+
+main {
+    height: auto;
+    width: 100%;
+    margin-top: 100Px;
+}
+
+.product-image {
+    max-width: 300Px;
+    margin-top: 20px;
+
+}
+
+.empty {
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+/* Define a custom class for the red button */
+.btn-red {
+    background-color: red;
+    border-color: red;
+    color: white;
+    /* text color */
+}
+
+/* Override Bootstrap styles for the red button when it is clicked or hovered */
+.btn-red:hover,
+.btn-red:active,
+.btn-red:focus {
+    background-color: darkred;
+    border-color: darkred;
+    color: white;
+    /* text color */
+}
+
+.add {
+    border: none;
+}
+
+.js-alert {
+    display: block;
+}
+
+.show {
+    display: block;
+}
+
+.drop {
+    background-color: rgb(209, 209, 209);
+}
