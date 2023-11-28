@@ -15,6 +15,7 @@ else {
 include_once("./includes/getData.php");
 $data = getData("announces");
 $user_id = getName("id");
+$role = getName("role");
 $user_image = getName("user_image");
 ?>
 
@@ -63,17 +64,23 @@ $user_image = getName("user_image");
                                 <a href=" ./includes/editProfile.php" class="nav-link text-dark">Edit Profile</a>
                             </li>
                         <?php } ?>
-                        <li class="nav-item">
-                            <a href="./includes/handelForm.php" class="nav-link text-dark">Add Product</a>
-                        </li>
+                        <?php if ($role != 1) { ?>
+                            <li class="nav-item">
+                                <a href="./includes/handelForm.php" class="nav-link text-dark">Add Product</a>
+                            </li>
+                        <?php } ?>
                         <?php if ($_SESSION["user-email"] === "admin") { ?>
                             <li class="nav-item">
                                 <a href="./admin/dashboard.php" class="nav-link text-dark">Dashboard</a>
                             </li>
                         <?php } else { ?>
-                            <li class="nav-item">
-                                <a href="./includes/myproducts.php" class="nav-link text-dark">My Products</a>
-                            </li>
+                            <?php if ($role != 1) { ?>
+
+                                <li class="nav-item">
+                                    <a href="./includes/myproducts.php" class="nav-link text-dark">My Products</a>
+                                </li>
+                            <?php } ?>
+
                         <?php } ?>
                         <li class="nav-item">
                             <a href="./includes/log.php?log=false" class="nav-link text-dark">Logout</a>
@@ -144,7 +151,10 @@ $user_image = getName("user_image");
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <a href="./includes/productPage.php/?id=<?php echo $announce["id"]; ?>" class="btn btn-primary">See More</a>
+                                    <?php if ($role != 2) { ?>
                                     <i class="fa fa-heart cursor favorite" style="font-size:30px;color:gray"></i>
+                        <?php } ?>
+
                                 </div>
                             </div>
                         </div>
