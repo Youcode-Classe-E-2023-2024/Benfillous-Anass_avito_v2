@@ -71,9 +71,11 @@ if (isset($_SESSION["login"])) {
 
         <form id="signupForm" style="display: none" action="signupHandler.php" enctype="multipart/form-data" method="post">
             <h2>Sign Up</h2>
-            <div class="form-group">
-                <label for="signupImage">Profile Picture</label>
-                <input type="file" accept="image/png, image/jpeg" class="form-control" name="profile" id="signupImage"/>
+            <div class="form-group d-flex justify-content-center">
+                <label for="profile-picture" class="cursor-pointer">
+                    <img id="preview" src="./blank-profile-picture-973460_1280.webp" alt="Profile Picture" width="70" class="rounded-circle shadow-4-strong">
+                    <input type="file" id="profile-picture" name="profile" class="d-none" accept="image/*" onchange="previewImage()">
+                </label>
             </div>
             <div class="form-group">
                 <label for="signupName">Username</label>
@@ -132,6 +134,20 @@ if (isset($_SESSION["login"])) {
         function removeRedColor(elm) {
             if (incorrect[elm].classList[1] === "incorrect") {
                 incorrect[elm].classList.remove("incorrect");
+            }
+        }
+
+        function previewImage() {
+            const fileInput = document.getElementById('profile-picture');
+            const preview = document.getElementById('preview');
+
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    preview.src = reader.result;
+                };
+                reader.readAsDataURL(file);
             }
         }
     </script>
