@@ -30,6 +30,6 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["usernam
                 echo "<script>console.log('Error inserting record: ' . $stmt->error)</script>";
             }
         }
-            
+        header("location: ./login.php");
     }
 }

@@ -11,7 +11,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $row = mysqli_fetch_assoc($result);
     $hashed_password = $row["password"];
 
-    if ($email === "admin@admin" && $password === "admin"){
+    if ($email === "admin@admin" && password_verify($password, $hashed_password)){
         $_SESSION["login"] = true;
         $_SESSION["user-email"] = "admin";
         header("location: ./log.php?login=true");

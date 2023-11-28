@@ -58,9 +58,11 @@ $user_image = getName("user_image");
                 </button>
                 <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
                     <ul class="drop-list">
-                        <li class="nav-item">
-                            <a href=" ./includes/editProfile.php?<?php echo $user_id; ?>" class="nav-link text-dark">Edit Profile</a>
-                        </li>
+                        <?php if ($_SESSION["user-email"] != "admin") { ?>
+                            <li class="nav-item">
+                                <a href=" ./includes/editProfile.php" class="nav-link text-dark">Edit Profile</a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item">
                             <a href="./includes/handelForm.php" class="nav-link text-dark">Add Product</a>
                         </li>
@@ -130,14 +132,16 @@ $user_image = getName("user_image");
         <div class="container">
             <div class="row">
                 <?php foreach ($data as $announce) { ?>
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-3 mb-3">
                         <div class="card">
                             <img src="data:image/jpeg;base64,<?php echo base64_encode($announce['img']); ?>" class="card-img-top" alt="Product Image">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $announce['title']; ?></h5>
                                 <p class="card-text description"><?php echo $announce['descri']; ?></p>
-                                <p class="card-text"><strong>Price: </strong><?php echo $announce['price']; ?> <span style="color:green;">Dhs</span></p>
-                                <p class="card-text"><strong>Phone:</strong> <?php echo $announce['phone']; ?></p>
+                                <div class="d-flex justify-content-between">
+                                    <p style="color:green;" class="card-text"><strong>Price: </strong><?php echo $announce['price']; ?> Dhs</p>
+                                    <p class="card-text"><strong>Phone:</strong> <?php echo $announce['phone']; ?></p>
+                                </div>
                                 <div class="d-flex justify-content-between">
                                     <a href="./includes/productPage.php/?id=<?php echo $announce["id"]; ?>" class="btn btn-primary">See More</a>
                                     <i class="fa fa-heart cursor favorite" style="font-size:30px;color:gray"></i>

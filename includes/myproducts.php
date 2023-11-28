@@ -53,11 +53,11 @@ $user_image = getName("user_image");
                             <a href="./editProfile.php?<?php echo $user_id; ?>" class="nav-link text-dark">Edit Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./includes/handelForm.php" class="nav-link text-dark">Add Product</a>
+                            <a href="./handelForm.php" class="nav-link text-dark">Add Product</a>
                         </li>
                         <?php if ($_SESSION["user-email"] === "admin") { ?>
                             <li class="nav-item">
-                                <a href="./admin/dashboard.php" class="nav-link text-dark">Dashboard</a>
+                                <a href="../admin/dashboard.php" class="nav-link text-dark">Dashboard</a>
                             </li>
                         <?php } else { ?>
                             <li class="nav-item">
@@ -65,7 +65,7 @@ $user_image = getName("user_image");
                             </li>
                         <?php } ?>
                         <li class="nav-item">
-                            <a href="./includes/log.php?log=false" class="nav-link text-dark">Logout</a>
+                            <a href="./log.php?log=false" class="nav-link text-dark">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -109,7 +109,7 @@ $user_image = getName("user_image");
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <form action="./includes/delete.php/?id=<?php echo $announce["id"]; ?>" method="post">
+                                        <form action="./delete.php/?id=<?php echo $announce["id"]; ?>" method="post">
                                             <button type="submit" class="btn btn-danger">Yes</button>
                                         </form>
                                     </div>

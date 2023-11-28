@@ -11,6 +11,7 @@ $result = $conn->query($query);
 if (!$result) {
     die('Error in query: ' . $conn->error);
 }
+
 if (isset($_GET["admin"]))
     header("location:   ../../admin/dashboard.php");
 else

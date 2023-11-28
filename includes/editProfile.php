@@ -3,15 +3,17 @@ session_start();
 include_once("./getName.php");
 if ($_SESSION["login"] == true || $_SESSION["user-email"] === "admin") {
     echo "Welcome" . " " . getName("username");
-} else if ($_SESSION["user-email"] === "admin" && empty($_GET["admin"]))
-    header("location: ../admin/dashboard.php");
-else {
+} else {
     header("location: ./login.php");
 }
 
 include_once("./getData.php");
 $data = getData("announces");
-$user_id = getName("id");
+if (isset($_GET["id"]))
+    $user_id = $_GET["id"];
+else
+    $user_id = getName("id");
+
 $user_image = getName("user_image");
 if (isset($_POST["update"])) {
     include("./config.php");
@@ -67,8 +69,8 @@ if (isset($_POST["update"])) {
 
     // Remove the trailing comma and add the WHERE clause
     $query = rtrim($query, ',') . " WHERE id = '$user_id'";
-    $result = $conn->query($query);
-    header("location: ./editProfile.php?updated=true");
+    $conn->query($query);
+    // header("location: ./editProfile.php?updated=true");
 }
 
 ?>
@@ -143,7 +145,7 @@ if (isset($_POST["update"])) {
                             <a href="./editProfile.php?<?php echo $user_id; ?>" class="nav-link text-dark">Edit Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./includes/handelForm.php" class="nav-link text-dark">Add Product</a>
+                            <a href="./ handelForm.php" class="nav-link text-dark">Add Product</a>
                         </li>
                         <?php if ($_SESSION["user-email"] === "admin") { ?>
                             <li class="nav-item">
@@ -164,7 +166,7 @@ if (isset($_POST["update"])) {
     </nav>
     <main>
         <div class="container mt-5">
-            <form id="editProfileForm" action="editProfile.php" enctype="multipart/form-data" method="post">
+            <form id="editProfileForm" action="editProfile.php?id=<?php echo $user_id;?>" enctype="multipart/form-data" method="post">
                 <h2 class="text-center mb-4">Edit Profile</h2>
 
                 <div class="form-group d-flex justify-content-center">
@@ -178,7 +180,6 @@ if (isset($_POST["update"])) {
                     <label for="signupName">Username</label>
                     <input type="text" class="form-control" name="username" id="signupName" placeholder="Enter your username" />
                 </div>
-
                 <div class="form-group">
                     <label for="signupEmail">Email address</label>
                     <input type="email" name="email" class="form-control" id="signupEmail" placeholder="Enter email" />
