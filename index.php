@@ -24,9 +24,18 @@ $user_image = getName("user_image");
     <title>avito</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./includes/style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         ul {
             list-style: none;
+        }
+
+        .cursor {
+            cursor: pointer;
+        }
+
+        .red {
+            color: red !important;
         }
     </style>
 </head>
@@ -45,7 +54,7 @@ $user_image = getName("user_image");
 
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user_image); ?>" class="rounded-circle mb-3" style="width: 150px;" onclick="profileNav()" alt="User Image">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($user_image); ?>" class="rounded-circle mb-3" style="width: 70px;" onclick="profileNav()" alt="User Image">
                 </button>
                 <div class="dropdown-menu drop" aria-labelledby="dropdownMenuButton">
                     <ul class="drop-list">
@@ -127,36 +136,11 @@ $user_image = getName("user_image");
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $announce['title']; ?></h5>
                                 <p class="card-text description"><?php echo $announce['descri']; ?></p>
-                                <p class="card-text"><strong>Price: </strong><?php echo $announce['price']; ?> Dhs</p>
+                                <p class="card-text"><strong>Price: </strong><?php echo $announce['price']; ?> <span style="color:green;">Dhs</span></p>
                                 <p class="card-text"><strong>Phone:</strong> <?php echo $announce['phone']; ?></p>
-                                <?php if ($announce["user_id"] === $user_id || $_SESSION["user-email"] == "admin") { ?>
-                                    <a href="edit.php/?id=<?php echo $announce["id"]; ?>" class="btn btn-primary">Edit</a>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove_<?php echo $announce["id"]; ?>">
-                                        Delete
-                                    </button>
-                                <?php } ?>
-                            </div>
-                        </div>
-
-                        <!-- Delete Modal -->
-                        <div class="modal fade" id="remove_<?php echo $announce["id"]; ?>" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="removeModalLabel">Remove Item</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to remove "<?php echo $announce["title"]; ?>"?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <form action="./includes/delete.php/?id=<?php echo $announce["id"]; ?>" method="post">
-                                            <button type="submit" class="btn btn-danger">Yes</button>
-                                        </form>
-                                    </div>
+                                <div class="d-flex justify-content-between">
+                                    <a href="./includes/productPage.php/?id=<?php echo $announce["id"]; ?>" class="btn btn-primary">See More</a>
+                                    <i class="fa fa-heart cursor favorite" style="font-size:30px;color:gray"></i>
                                 </div>
                             </div>
                         </div>
@@ -303,6 +287,31 @@ $user_image = getName("user_image");
         setTimeout(() => {
             document.querySelector(".js-alert").style.display = "none";
         }, 3000)
+        let fav = document.querySelectorAll(".favorite");
+
+        for (let i = 0; i < fav.length; i++) {
+            fav[i].addEventListener("click", (elm) => {
+                fav[i].classList.toggle("red");
+            });
+        }
+        exampleForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            const formData = new FormData(exampleForm);
+            formData.append('id', 2);
+
+            fetch('file.php', {
+                    method: 'POST',
+                    body: formData, // Pass formData directly as the body
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error sending data:', error);
+                });
+        });
     </script>
 </body>
 
