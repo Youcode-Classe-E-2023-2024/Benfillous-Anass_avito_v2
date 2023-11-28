@@ -86,7 +86,7 @@ $user_image = getName("user_image");
                                 <p class="card-text"><strong>Price: </strong><?php echo $announce['price']; ?>Dhs</p>
                                 <p class="card-text"><strong>Phone:</strong> <?php echo $announce['phone']; ?></p>
                                 <?php if ($announce["user_id"] === $user_id || $_SESSION["user-email"] == "admin") { ?>
-                                    <a href="edit.php/?id=<?php echo $announce["id"]; ?>" class="btn btn-primary">Edit</a>
+                                    <a href="../edit.php/?id=<?php echo $announce["id"]; ?>" class="btn btn-primary">Edit</a>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove_<?php echo $announce["id"]; ?>">
                                         Delete
                                     </button>
